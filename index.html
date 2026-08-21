@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Session Bot | ER:LC</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#080a0f;
+    color:white;
+}
+
+.app{
+    min-height:100vh;
+    display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:245px;
+    min-height:100vh;
+    background:#10131a;
+    border-right:1px solid #292f3a;
+    padding:25px 15px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    padding:10px 15px 30px;
+}
+
+.logo span{
+    color:#7557ff;
+}
+
+.nav button{
+    width:100%;
+    padding:14px;
+    margin-bottom:7px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:#9da5b5;
+    text-align:left;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:#202632;
+    color:white;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    padding:30px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+.topbar h1{
+    margin:0;
+    font-size:31px;
+}
+
+.topbar p{
+    color:#858e9e;
+    margin-top:5px;
+}
+
+.status{
+    background:#171c25;
+    padding:10px 16px;
+    border-radius:20px;
+    color:#70e49b;
+    font-weight:bold;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:#11151d;
+    border:1px solid #292f3a;
+    border-radius:15px;
+    padding:21px;
+}
+
+.card-title{
+    color:#858e9e;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.card-value{
+    font-size:27px;
+    font-weight:900;
+    margin-top:10px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:18px;
+    margin-top:18px;
+}
+
+.panel{
+    background:#11151d;
+    border:1px solid #292f3a;
+    border-radius:15px;
+    padding:20px;
+}
+
+.panel h2{
+    margin-top:0;
+}
+
+/* BUTTONS */
+
+.btn{
+    border:0;
+    border-radius:9px;
+    padding:12px 17px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin:4px;
+}
+
+.btn:hover{
+    opacity:.85;
+}
+
+.btn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+}
+
+.green{
+    background:#26935b;
+}
+
+.red{
+    background:#d84756;
+}
+
+.purple{
+    background:#7557ff;
+}
+
+.gray{
+    background:#292f3a;
+}
+
+.orange{
+    background:#c8792f;
+}
+
+/* ACTIVITY */
+
+.activity{
+    padding:12px 0;
+    border-bottom:1px solid #292f3a;
+    font-size:14px;
+}
+
+.muted{
+    color:#858e9e;
+    font-size:13px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:560px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    background:#151a22;
+    border:1px solid #303746;
+    border-radius:16px;
+    padding:25px;
+}
+
+/* INPUT */
+
+.input{
+    width:100%;
+    padding:13px;
+    margin-top:10px;
+    background:#090c12;
+    color:white;
+    border:1px solid #303746;
+    border-radius:9px;
+    outline:none;
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+    padding:13px;
+    background:#090c12;
+    border:1px solid #303746;
+    border-radius:9px;
+}
+
+.check input{
+    width:18px;
+    height:18px;
+}
+
+/* CONFIRM */
+
+.confirm{
+    background:#090c12;
+    border:1px solid #303746;
+    border-radius:10px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.confirm-row{
+    padding:10px 0;
+    border-bottom:1px solid #252b35;
+}
+
+.confirm-row:last-child{
+    border-bottom:0;
+}
+
+/* VOTE */
+
+.vote-number{
+    font-size:28px;
+    font-weight:900;
+    margin:20px 0;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        padding:18px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+SESSION <span>BOT</span>
+</div>
+
+<nav class="nav">
+
+<button
+class="active"
+onclick="showDashboard(this)">
+📊 Dashboard
+</button>
+
+<button
+onclick="startSession()">
+🟢 Start Session
+</button>
+
+<button
+onclick="endSession()">
+🔴 End Session
+</button>
+
+<button
+onclick="openVote()">
+🗳️ Session Vote
+</button>
+
+</nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="topbar">
+
+<div>
+
+<h1 id="pageTitle">
+Dashboard
+</h1>
+
+<p>
+ER:LC Session Management
+</p>
+
+</div>
+
+<div class="status">
+● Session Bot
+</div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard">
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-title">
+SESSION
+</div>
+
+<div
+id="sessionStatus"
+class="card-value">
+Inactive
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+SERVER CODE
+</div>
+
+<div
+id="serverCode"
+class="card-value">
+-
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+YES VOTES
+</div>
+
+<div
+id="yesCount"
+class="card-value">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+NO VOTES
+</div>
+
+<div
+id="noCount"
+class="card-value">
+0
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="panel">
+
+<h2>
+Quick Actions
+</h2>
+
+<p class="muted">
+Manage your ER:LC session.
+</p>
+
+<br>
+
+<button
+class="btn green"
+onclick="startSession()">
+🟢 Start Session
+</button>
+
+<button
+class="btn red"
+onclick="endSession()">
+🔴 End Session
+</button>
+
+<button
+class="btn purple"
+onclick="openVote()">
+🗳️ Session Vote
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+Recent Activity
+</h2>
+
+<div id="activity">
+
+<div class="muted">
+No activity yet.
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div
+id="modal"
+class="modal">
+
+<div
+id="modalBox"
+class="modal-box">
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DISCORD WEBHOOK
+   =====================================================
+
+   PUT YOUR DISCORD WEBHOOK BETWEEN THE QUOTES.
+
+   Example:
+
+   const DISCORD_WEBHOOK =
+   "https://discord.com/api/webhooks/...";
+
+   DO NOT SEND YOUR REAL WEBHOOK TO ME.
+   ===================================================== */
+
+const DISCORD_WEBHOOK =
+"PASTE_YOUR_DISCORD_WEBHOOK_HERE";
+
+
+/* =====================================================
+   BOT NAME
+   ===================================================== */
+
+const BOT_NAME =
+"Session Bot";
+
+
+/* =====================================================
+   SESSION DATA
+   ===================================================== */
+
+let sessionActive = false;
+
+let currentServerCode = "";
+
+let yesVotes = 0;
+
+let noVotes = 0;
+
+let alreadyVoted = false;
+
+
+/* =====================================================
+   DISCORD SEND
+   ===================================================== */
+
+async function sendDiscord(
+    message,
+    everyone = false
+){
+
+    if(
+        !DISCORD_WEBHOOK ||
+        DISCORD_WEBHOOK ===
+        "https://discord.com/api/webhooks/1540134895093817375/RepXUH6GEjyn9ppQIpf3lZV2aJsGKnXXAnLqW-CeozcIMN9GKNq4Y7VqqAFZu2ECF-5m"
+    ){
+
+        alert(
+            "You haven't added your Discord webhook yet."
+        );
+
+        addActivity(
+            "⚠️ Discord webhook not configured."
+        );
+
+        return false;
+    }
+
+
+    try{
+
+        const response =
+        await fetch(
+            DISCORD_WEBHOOK,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    username:BOT_NAME,
+
+                    allowed_mentions:{
+                        parse:
+                        everyone
+                        ? ["everyone"]
+                        : []
+                    },
+
+                    embeds:[{
+
+                        title:
+                        "ER:LC Session Bot",
+
+                        description:
+                        message,
+
+                        color:
+                        0x7557ff,
+
+                        footer:{
+                            text:
+                            "Session Bot"
+                        },
+
+                        timestamp:
+                        new Date()
+                        .toISOString()
+
+                    }]
+
+                })
+            }
+        );
+
+
+        if(
+            !response.ok
+        ){
+
+            throw new Error(
+                "Discord returned HTTP " +
+                response.status
+            );
+
+        }
+
+
+        addActivity(
+            "✅ Discord announcement sent."
+        );
+
+        return true;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        addActivity(
+            "❌ Discord announcement failed."
+        );
+
+        alert(
+            "Discord announcement failed.\n\n" +
+            "Check your webhook and make sure the dashboard is allowed to send the request."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   START SESSION
+   ===================================================== */
+
+function startSession(){
+
+    if(sessionActive){
+
+        alert(
+            "A session is already active."
+        );
+
+        return;
+    }
+
+
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
+
+        <h2>
+        🟢 Start ER:LC Session
+        </h2>
+
+        <p class="muted">
+        Enter your ER:LC server code.
+        </p>
+
+        <input
+        id="serverCodeInput"
+        class="input"
+        placeholder="ER:LC Server Code"
+        maxlength="50">
+
+
+        <label class="check">
+
+            <input
+            id="everyoneInput"
+            type="checkbox">
+
+            <span>
+            📢 Send @everyone
+            </span>
+
+        </label>
+
+
+        <br>
+
+
+        <button
+        class="btn green"
+        onclick="confirmSession()">
+
+        Continue
+
+        </button>
+
+
+        <button
+        class="btn gray"
+        onclick="closeModal()">
+
+        Cancel
+
+        </button>
+
+    `;
+
+
+    openModal();
+
+}
+
+
+/* =====================================================
+   CONFIRM SESSION
+   ===================================================== */
+
+function confirmSession(){
+
+    const code =
+    document.getElementById(
+        "serverCodeInput"
+    ).value.trim();
+
+
+    const everyone =
+    document.getElementById(
+        "everyoneInput"
+    ).checked;
+
+
+    if(!code){
+
+        alert(
+            "Enter the ER:LC server code."
+        );
+
+        return;
+    }
+
+
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
+
+        <h2>
+        ⚠️ Confirm Session
+        </h2>
+
+
+        <div class="confirm">
+
+            <div class="confirm-row">
+
+                <b>
+                Server Code:
+                </b>
+
+                ${escapeHTML(code)}
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <b>
+                Discord:
+                </b>
+
+                ${
+                    everyone
+                    ? "@everyone"
+                    : "No @everyone"
+                }
+
+            </div>
+
+        </div>
+
+
+        <p
+        class="muted"
+        style="margin-top:18px">
+
+        Are you sure you want to start
+        this ER:LC session?
+
+        </p>
+
+
+        <button
+        class="btn green"
+        onclick="finalStart(
+            '${escapeJS(code)}',
+            ${everyone}
+        )">
+
+        ✅ Confirm & Start
+
+        </button>
+
+
+        <button
+        class="btn gray"
+        onclick="startSession()">
+
+        ← Back
+
+        </button>
+
+    `;
+
+}
+
+
+/* =====================================================
+   FINAL START
+   ===================================================== */
+
+async function finalStart(
+    code,
+    everyone
+){
+
+    const message =
+
+        "🟢 **SESSION STARTED**\n\n" +
+
+        "🎮 **ER:LC Server Code:** `" +
+        code +
+        "`\n\n" +
+
+        "👤 **Hosted by:** Session Bot";
+
+
+    const sent =
+    await sendDiscord(
+        message,
+        everyone
+    );
+
+
+    if(!sent){
+
+        return;
+    }
+
+
+    sessionActive = true;
+
+    currentServerCode =
+    code;
+
+
+    updateDashboard();
+
+    closeModal();
+
+
+    addActivity(
+        "🟢 ER:LC session started."
+    );
+
+}
+
+
+/* =====================================================
+   END SESSION
+   ===================================================== */
+
+async function endSession(){
+
+    if(!sessionActive){
+
+        alert(
+            "There isn't an active session."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+    confirm(
+        "Are you sure you want to end the session?"
+    );
+
+
+    if(!confirmed){
+
+        return;
+    }
+
+
+    const message =
+
+        "🔴 **SESSION ENDED**\n\n" +
+
+        "🎮 **Previous Server Code:** `" +
+        currentServerCode +
+        "`";
+
+
+    const sent =
+    await sendDiscord(
+        message,
+        false
+    );
+
+
+    if(!sent){
+
+        return;
+    }
+
+
+    sessionActive = false;
+
+    currentServerCode = "";
+
+
+    updateDashboard();
+
+
+    addActivity(
+        "🔴 ER:LC session ended."
+    );
+
+}
+
+
+/* =====================================================
+   SESSION VOTE
+   ===================================================== */
+
+function openVote(){
+
+    yesVotes = 0;
+
+    noVotes = 0;
+
+    alreadyVoted = false;
+
+
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
+
+        <h2>
+        🗳️ ER:LC Session Vote
+        </h2>
+
+
+        <p class="muted">
+
+        Should we start an ER:LC session?
+
+        </p>
+
+
+        <div
+        id="voteDisplay"
+        class="vote-number">
+
+        YES: 0 | NO: 0
+
+        </div>
+
+
+        <button
+        id="yesButton"
+        class="btn green"
+        onclick="castVote('yes')">
+
+        ✅ YES
+
+        </button>
+
+
+        <button
+        id="noButton"
+        class="btn red"
+        onclick="castVote('no')">
+
+        ❌ NO
+
+        </button>
+
+
+        <p
+        id="voteMessage"
+        class="muted"
+        style="margin-top:15px">
+
+        You have not voted yet.
+
+        </p>
+
+
+        <br>
+
+
+        <button
+        class="btn purple"
+        onclick="sendVoteToDiscord()">
+
+        📢 Send Vote to Discord
+
+        </button>
+
+
+        <button
+        class="btn gray"
+        onclick="closeModal()">
+
+        Close
+
+        </button>
+
+    `;
+
+
+    openModal();
+
+}
+
+
+/* =====================================================
+   CAST VOTE
+   ===================================================== */
+
+function castVote(type){
+
+    if(alreadyVoted){
+
+        document.getElementById(
+            "voteMessage"
+        ).textContent =
+        "⚠️ You already voted.";
+
+        return;
+    }
+
+
+    alreadyVoted = true;
+
+
+    if(type === "yes"){
+
+        yesVotes++;
+
+    }else{
+
+        noVotes++;
+
+    }
+
+
+    document.getElementById(
+        "voteDisplay"
+    ).textContent =
+
+        "YES: " +
+        yesVotes +
+        " | NO: " +
+        noVotes;
+
+
+    document.getElementById(
+        "voteMessage"
+    ).textContent =
+
+        "✅ Vote recorded. You cannot vote again.";
+
+
+    document.getElementById(
+        "yesButton"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "noButton"
+    ).disabled = true;
+
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   SEND VOTE TO DISCORD
+   ===================================================== */
+
+async function sendVoteToDiscord(){
+
+    const message =
+
+        "🗳️ **SESSION VOTE**\n\n" +
+
+        "Should we start an ER:LC session?\n\n" +
+
+        "✅ **YES**\n" +
+
+        "❌ **NO**\n\n" +
+
+        "Use the Session Bot dashboard to vote.";
+
+
+    const sent =
+    await sendDiscord(
+        message,
+        false
+    );
+
+
+    if(sent){
+
+        addActivity(
+            "🗳️ Session vote sent to Discord."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+
+function updateDashboard(){
+
+    document.getElementById(
+        "sessionStatus"
+    ).textContent =
+
+        sessionActive
+        ? "Active"
+        : "Inactive";
+
+
+    document.getElementById(
+        "serverCode"
+    ).textContent =
+
+        currentServerCode ||
+        "-";
+
+
+    document.getElementById(
+        "yesCount"
+    ).textContent =
+    yesVotes;
+
+
+    document.getElementById(
+        "noCount"
+    ).textContent =
+    noVotes;
+
+}
+
+
+/* =====================================================
+   ACTIVITY
+   ===================================================== */
+
+function addActivity(text){
+
+    const box =
+    document.getElementById(
+        "activity"
+    );
+
+
+    if(
+        box.innerText.includes(
+            "No activity yet."
+        )
+    ){
+
+        box.innerHTML = "";
+
+    }
+
+
+    const item =
+    document.createElement(
+        "div"
+    );
+
+
+    item.className =
+    "activity";
+
+
+    item.textContent =
+
+        new Date()
+        .toLocaleTimeString() +
+
+        " — " +
+
+        text;
+
+
+    box.prepend(item);
+
+}
+
+
+/* =====================================================
+   DASHBOARD NAV
+   ===================================================== */
+
+function showDashboard(button){
+
+    document
+    .querySelectorAll(
+        ".nav button"
+    )
+    .forEach(
+        b =>
+        b.classList.remove(
+            "active"
+        )
+    );
+
+
+    button.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =====================================================
+   MODAL
+   ===================================================== */
+
+function openModal(){
+
+    document
+    .getElementById(
+        "modal"
+    )
+    .classList.add(
+        "show"
+    );
+
+}
+
+
+function closeModal(){
+
+    document
+    .getElementById(
+        "modal"
+    )
+    .classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   SECURITY / HTML ESCAPE
+   ===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+function escapeJS(value){
+
+    return String(value)
+
+    .replaceAll(
+        "\\",
+        "\\\\"
+    )
+
+    .replaceAll(
+        "'",
+        "\\'"
+    )
+
+    .replaceAll(
+        "\n",
+        "\\n"
+    )
+
+    .replaceAll(
+        "\r",
+        ""
+    );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
