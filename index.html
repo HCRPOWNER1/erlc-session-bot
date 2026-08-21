@@ -543,8 +543,8 @@ class="modal-box">
    DO NOT SEND YOUR REAL WEBHOOK TO ME.
    ===================================================== */
 
-const DISCORD_WEBHOOK =
-"PASTE_YOUR_DISCORD_WEBHOOK_HERE";
+const WORKER_URL =
+"https://floral-mouse-7550.j-magdaleno5.workers.dev/";
 
 
 /* =====================================================
@@ -574,7 +574,55 @@ let alreadyVoted = false;
    DISCORD SEND
    ===================================================== */
 
-async function sendDiscord(
+async function sendDiscord(message, everyone = false) {
+
+    try {
+
+        const response = await fetch(WORKER_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: message,
+                everyone: everyone
+            })
+
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.error || "Worker request failed."
+            );
+        }
+
+        addActivity(
+            "✅ Discord announcement sent."
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        addActivity(
+            "❌ Discord announcement failed."
+        );
+
+        alert(
+            "Discord announcement failed.\n\n" +
+            error.message
+        );
+
+        return false;
+    }
+}
     message,
     everyone = false
 ){
