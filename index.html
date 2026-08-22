@@ -1,278 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Session Bot</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ER:LC Session Dashboard</title>
 
 <style>
-
-*{
-box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#080a0f;
-color:white;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080a0f;
+    color: white;
 }
 
-.app{
-min-height:100vh;
-display:flex;
+.app {
+    min-height: 100vh;
+    display: flex;
 }
 
-.sidebar{
-width:240px;
-background:#10131a;
-border-right:1px solid #292f3a;
-padding:25px 15px;
+.sidebar {
+    width: 240px;
+    background: #10131a;
+    border-right: 1px solid #292f3a;
+    padding: 25px 15px;
 }
 
-.logo{
-font-size:25px;
-font-weight:900;
-padding:10px 15px 30px;
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    padding: 10px 15px 30px;
 }
 
-.logo span{
-color:#7557ff;
+.logo span {
+    color: #7557ff;
 }
 
-.nav button{
-width:100%;
-border:0;
-background:transparent;
-color:#9da5b5;
-padding:14px;
-margin-bottom:7px;
-border-radius:9px;
-text-align:left;
-font-weight:bold;
-cursor:pointer;
+.nav button {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: #9da5b5;
+    padding: 14px;
+    margin-bottom: 7px;
+    border-radius: 9px;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.nav button:hover{
-background:#202632;
-color:white;
+.nav button:hover {
+    background: #202632;
+    color: white;
 }
 
-.main{
-flex:1;
-padding:30px;
+.main {
+    flex: 1;
+    padding: 30px;
 }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.top h1{
-margin:0;
-font-size:31px;
+.top h1 {
+    margin: 0;
+    font-size: 31px;
 }
 
-.muted{
-color:#858e9e;
-font-size:13px;
+.muted {
+    color: #858e9e;
+    font-size: 13px;
 }
 
-.status{
-background:#151b24;
-padding:10px 15px;
-border-radius:20px;
-color:#70e49b;
+.status {
+    background: #151b24;
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: #70e49b;
 }
 
-.cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
-.card{
-background:#11151d;
-border:1px solid #292f3a;
-border-radius:15px;
-padding:20px;
+.card {
+    background: #11151d;
+    border: 1px solid #292f3a;
+    border-radius: 15px;
+    padding: 20px;
 }
 
-.card-title{
-color:#858e9e;
-font-size:12px;
-font-weight:bold;
+.card-title {
+    color: #858e9e;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.card-value{
-font-size:28px;
-font-weight:900;
-margin-top:10px;
+.card-value {
+    font-size: 28px;
+    font-weight: 900;
+    margin-top: 10px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:18px;
-margin-top:18px;
+.grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 18px;
+    margin-top: 18px;
 }
 
-.panel{
-background:#11151d;
-border:1px solid #292f3a;
-border-radius:15px;
-padding:20px;
+.panel {
+    background: #11151d;
+    border: 1px solid #292f3a;
+    border-radius: 15px;
+    padding: 20px;
 }
 
-.panel h2{
-margin-top:0;
+.panel h2 {
+    margin-top: 0;
 }
 
-.btn{
-border:0;
-color:white;
-padding:13px 18px;
-border-radius:9px;
-font-weight:bold;
-cursor:pointer;
-margin:4px;
+.btn {
+    border: 0;
+    color: white;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 4px;
 }
 
-.btn:hover{
-opacity:.85;
+.btn:hover {
+    opacity: .85;
 }
 
-.green{
-background:#26935b;
+.green {
+    background: #26935b;
 }
 
-.red{
-background:#d84756;
+.red {
+    background: #d84756;
 }
 
-.purple{
-background:#7557ff;
+.purple {
+    background: #7557ff;
 }
 
-.gray{
-background:#292f3a;
+.gray {
+    background: #292f3a;
 }
 
-.input{
-width:100%;
-padding:13px;
-margin-top:10px;
-background:#090c12;
-color:white;
-border:1px solid #303746;
-border-radius:9px;
-outline:none;
+.input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    background: #090c12;
+    color: white;
+    border: 1px solid #303746;
+    border-radius: 9px;
+    outline: none;
 }
 
-.check{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:15px;
-padding:13px;
-background:#090c12;
-border:1px solid #303746;
-border-radius:9px;
+.check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 13px;
+    background: #090c12;
+    border: 1px solid #303746;
+    border-radius: 9px;
 }
 
-.check input{
-width:18px;
-height:18px;
+.check input {
+    width: 18px;
+    height: 18px;
 }
 
-.activity{
-padding:12px 0;
-border-bottom:1px solid #292f3a;
+.activity {
+    padding: 12px 0;
+    border-bottom: 1px solid #292f3a;
 }
 
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.8);
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:100;
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.8);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
 }
 
-.modal.show{
-display:flex;
+.modal.show {
+    display: flex;
 }
 
-.modal-box{
-width:550px;
-max-width:100%;
-background:#151a22;
-border:1px solid #303746;
-border-radius:15px;
-padding:25px;
+.modal-box {
+    width: 550px;
+    max-width: 100%;
+    background: #151a22;
+    border: 1px solid #303746;
+    border-radius: 15px;
+    padding: 25px;
 }
 
-.confirm{
-background:#090c12;
-border:1px solid #303746;
-border-radius:10px;
-padding:15px;
-margin:15px 0;
+.confirm {
+    background: #090c12;
+    border: 1px solid #303746;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
 }
 
-.confirm div{
-padding:9px 0;
-border-bottom:1px solid #292f3a;
+.confirm div {
+    padding: 9px 0;
+    border-bottom: 1px solid #292f3a;
 }
 
-.confirm div:last-child{
-border:0;
+.confirm div:last-child {
+    border: 0;
 }
 
-@media(max-width:900px){
-
-.cards{
-grid-template-columns:1fr;
+@media(max-width:900px) {
+    .cards,
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.grid{
-grid-template-columns:1fr;
+@media(max-width:650px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 18px;
+    }
 }
-
-}
-
-@media(max-width:650px){
-
-.sidebar{
-display:none;
-}
-
-.main{
-padding:18px;
-}
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="app">
-
 
 <aside class="sidebar">
 
@@ -302,22 +283,13 @@ SESSION <span>BOT</span>
 
 </aside>
 
-
 <main class="main">
-
 
 <div class="top">
 
 <div>
-
-<h1>
-Session Dashboard
-</h1>
-
-<p class="muted">
-ER:LC Session Management
-</p>
-
+<h1>Session Dashboard</h1>
+<p class="muted">ER:LC Session Management</p>
 </div>
 
 <div class="status">
@@ -326,66 +298,36 @@ ER:LC Session Management
 
 </div>
 
-
 <div class="cards">
 
-
 <div class="card">
-
-<div class="card-title">
-SESSION
-</div>
-
-<div
-id="sessionStatus"
-class="card-value">
+<div class="card-title">SESSION</div>
+<div id="sessionStatus" class="card-value">
 Inactive
 </div>
-
 </div>
-
 
 <div class="card">
-
-<div class="card-title">
-SERVER CODE
-</div>
-
-<div
-id="serverCode"
-class="card-value">
+<div class="card-title">SERVER CODE</div>
+<div id="serverCode" class="card-value">
 -
 </div>
-
 </div>
-
 
 <div class="card">
-
-<div class="card-title">
-VOTES
+<div class="card-title">DASHBOARD</div>
+<div class="card-value">
+Online
 </div>
-
-<div
-id="voteCount"
-class="card-value">
-0
 </div>
 
 </div>
-
-
-</div>
-
 
 <div class="grid">
 
-
 <div class="panel">
 
-<h2>
-Quick Actions
-</h2>
+<h2>Quick Actions</h2>
 
 <p class="muted">
 Manage your ER:LC session.
@@ -393,79 +335,47 @@ Manage your ER:LC session.
 
 <br>
 
-<button
-class="btn green"
-onclick="openSSU()">
-
+<button class="btn green" onclick="openSSU()">
 🟢 START SESSION
-
 </button>
 
-
-<button
-class="btn red"
-onclick="openSSD()">
-
+<button class="btn red" onclick="openSSD()">
 🔴 SHUT SESSION DOWN
-
 </button>
 
-
-<button
-class="btn purple"
-onclick="openVote()">
-
-🗳️ SESSION VOTE
-
+<button class="btn purple" onclick="openVote()">
+🗳️ SEND SESSION VOTE
 </button>
 
 </div>
-
 
 <div class="panel">
 
-<h2>
-Activity
-</h2>
+<h2>Activity</h2>
 
 <div id="activity">
-
 <div class="muted">
 No activity yet.
 </div>
-
 </div>
 
 </div>
 
-
 </div>
-
 
 </main>
-
 </div>
 
-
-<div
-id="modal"
-class="modal">
-
-<div
-id="modalBox"
-class="modal-box">
+<div id="modal" class="modal">
+<div id="modalBox" class="modal-box"></div>
 </div>
-
-</div>
-
 
 <script>
 
-
 /*
-====================================================
+========================================
 CLOUDFLARE WORKER
-====================================================
+========================================
 */
 
 const WORKER_URL =
@@ -473,821 +383,514 @@ const WORKER_URL =
 
 
 /*
-====================================================
+========================================
 SESSION DATA
-====================================================
+========================================
 */
 
 let sessionActive = false;
-
 let serverCode = "";
 
-let yesVotes = 0;
-
-let noVotes = 0;
-
-let alreadyVoted = false;
-
 
 /*
-====================================================
-SEND TO DISCORD
-====================================================
+========================================
+SEND DISCORD MESSAGE
+========================================
 */
 
-async function sendDiscord(
-message,
-everyone = false
-){
+async function sendDiscord(message, everyone = false) {
 
-try{
+    try {
 
-const response =
-await fetch(
-WORKER_URL,
-{
-method:"POST",
+        const response = await fetch(WORKER_URL, {
 
-headers:{
-"Content-Type":
-"application/json"
-},
+            method: "POST",
 
-body:JSON.stringify({
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-message:
-message,
+            body: JSON.stringify({
+                message: message,
+                everyone: everyone
+            })
 
-everyone:
-everyone
+        });
 
-})
+        const result = await response.json();
 
-}
-);
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.error || "Worker request failed."
+            );
+        }
 
+        addActivity("✅ Discord announcement sent.");
 
-const result =
-await response.json();
+        return true;
 
+    } catch (error) {
 
-if(
-!response.ok ||
-!result.success
-){
+        console.error(error);
 
-throw new Error(
-result.error ||
-"Worker request failed."
-);
+        addActivity("❌ Discord announcement failed.");
 
-}
+        alert(
+            "Discord announcement failed:\n\n" +
+            error.message
+        );
 
-
-addActivity(
-"✅ Discord announcement sent."
-);
-
-
-return true;
-
-
-}catch(error){
-
-console.error(error);
-
-addActivity(
-"❌ Discord announcement failed."
-);
-
-alert(
-"Discord announcement failed:\n\n"
-+
-error.message
-);
-
-return false;
-
-}
-
+        return false;
+    }
 }
 
 
 /*
-====================================================
+========================================
 SSU
-====================================================
+========================================
 */
 
-function openSSU(){
+function openSSU() {
 
-document.getElementById(
-"modalBox"
-).innerHTML=`
+    document.getElementById("modalBox").innerHTML = `
 
-<h2>
-🟢 Start Session
-</h2>
+        <h2>🟢 Start Session</h2>
 
-<p class="muted">
-Enter your ER:LC server code.
-</p>
+        <p class="muted">
+        Enter your ER:LC server code.
+        </p>
 
-<input
-id="ssuCode"
-class="input"
-placeholder="ER:LC Server Code">
+        <input
+            id="ssuCode"
+            class="input"
+            placeholder="ER:LC Server Code"
+        >
 
-<label class="check">
+        <label class="check">
 
-<input
-id="ssuEveryone"
-type="checkbox">
+            <input
+                id="ssuEveryone"
+                type="checkbox"
+            >
 
-<span>
-📢 Mention @everyone
-</span>
+            <span>
+                📢 Mention @everyone
+            </span>
 
-</label>
+        </label>
 
-<br>
+        <br>
 
-<button
-class="btn green"
-onclick="confirmSSU()">
+        <button
+            class="btn green"
+            onclick="confirmSSU()"
+        >
+            Continue
+        </button>
 
-Continue
+        <button
+            class="btn gray"
+            onclick="closeModal()"
+        >
+            Cancel
+        </button>
+    `;
 
-</button>
-
-<button
-class="btn gray"
-onclick="closeModal()">
-
-Cancel
-
-</button>
-
-`;
-
-openModal();
-
+    openModal();
 }
 
 
 /*
-====================================================
+========================================
 CONFIRM SSU
-====================================================
+========================================
 */
 
-function confirmSSU(){
+function confirmSSU() {
 
-const code =
-document.getElementById(
-"ssuCode"
-).value.trim();
+    const code =
+        document.getElementById("ssuCode").value.trim();
 
+    const everyone =
+        document.getElementById("ssuEveryone").checked;
 
-const everyone =
-document.getElementById(
-"ssuEveryone"
-).checked;
+    if (!code) {
 
+        alert(
+            "Please enter the ER:LC server code."
+        );
 
-if(!code){
+        return;
+    }
 
-alert(
-"Please enter the ER:LC server code."
-);
+    window.pendingSSU = {
+        code,
+        everyone
+    };
 
-return;
+    document.getElementById("modalBox").innerHTML = `
 
-}
+        <h2>⚠️ Confirm SSU</h2>
 
+        <div class="confirm">
 
-document.getElementById(
-"modalBox"
-).innerHTML=`
+            <div>
+                <b>Server Code:</b>
+                ${escapeHTML(code)}
+            </div>
 
-<h2>
-⚠️ Confirm SSU
-</h2>
+            <div>
+                <b>@everyone:</b>
+                ${everyone ? "YES" : "NO"}
+            </div>
 
-<div class="confirm">
+        </div>
 
-<div>
-<b>
-Server Code:
-</b>
+        <p class="muted">
+        Are you sure you want to start the session?
+        </p>
 
-${escapeHTML(code)}
+        <button
+            class="btn green"
+            onclick="startSSU()"
+        >
+            ✅ CONFIRM SSU
+        </button>
 
-</div>
-
-<div>
-
-<b>
-@everyone:
-</b>
-
-${everyone ? "YES" : "NO"}
-
-</div>
-
-</div>
-
-<p class="muted">
-
-Are you sure you want to start
-the session?
-
-</p>
-
-<button
-class="btn green"
-onclick="startSSU()">
-
-✅ CONFIRM SSU
-
-</button>
-
-<button
-class="btn gray"
-onclick="openSSU()">
-
-← Back
-
-</button>
-
-`;
-
-window.pendingSSU = {
-code,
-everyone
-};
-
+        <button
+            class="btn gray"
+            onclick="openSSU()"
+        >
+            ← Back
+        </button>
+    `;
 }
 
 
 /*
-====================================================
+========================================
 START SSU
-====================================================
+========================================
 */
 
-async function startSSU(){
+async function startSSU() {
 
-const data =
-window.pendingSSU;
+    const data = window.pendingSSU;
 
+    if (!data) return;
 
-if(!data){
+    const message =
+        "🟢 **SESSION STARTED**\n\n" +
+        "🎮 **ER:LC Server Code:** `" +
+        data.code +
+        "`\n\n" +
+        "👤 **Hosted by:** Jaxon";
 
-return;
+    const sent =
+        await sendDiscord(
+            message,
+            data.everyone
+        );
 
-}
+    if (!sent) return;
 
+    sessionActive = true;
+    serverCode = data.code;
 
-const message =
+    document.getElementById(
+        "sessionStatus"
+    ).textContent = "Active";
 
-"🟢 **SESSION STARTED**\n\n"
+    document.getElementById(
+        "serverCode"
+    ).textContent = serverCode;
 
-+
+    addActivity("🟢 SSU started.");
 
-"🎮 **ER:LC Server Code:** `"
-
-+
-
-data.code
-
-+
-
-"`\n\n"
-
-+
-
-"👤 **Hosted by:** Jaxon";
-
-
-const sent =
-await sendDiscord(
-message,
-data.everyone
-);
-
-
-if(!sent){
-
-return;
-
-}
-
-
-sessionActive = true;
-
-serverCode =
-data.code;
-
-
-document.getElementById(
-"sessionStatus"
-).textContent =
-"Active";
-
-
-document.getElementById(
-"serverCode"
-).textContent =
-serverCode;
-
-
-addActivity(
-"🟢 SSU started."
-);
-
-
-closeModal();
-
+    closeModal();
 }
 
 
 /*
-====================================================
+========================================
 SSD
-====================================================
+========================================
 */
 
-function openSSD(){
+function openSSD() {
 
-if(!sessionActive){
+    if (!sessionActive) {
 
-alert(
-"There is no active session."
-);
+        alert(
+            "There is no active session."
+        );
 
-return;
+        return;
+    }
 
-}
+    document.getElementById("modalBox").innerHTML = `
 
+        <h2>🔴 Shut Session Down</h2>
 
-document.getElementById(
-"modalBox"
-).innerHTML=`
+        <div class="confirm">
 
-<h2>
-🔴 Shut Session Down
-</h2>
+            <div>
+                <b>Server Code:</b>
+                ${escapeHTML(serverCode)}
+            </div>
 
-<div class="confirm">
+            <div>
+                <b>Action:</b>
+                Shut down session
+            </div>
 
-<div>
+        </div>
 
-<b>
-Server Code:
-</b>
+        <p class="muted">
+        Are you sure you want to shut down this session?
+        </p>
 
-${escapeHTML(serverCode)}
+        <button
+            class="btn red"
+            onclick="confirmSSD()"
+        >
+            🔴 CONFIRM SSD
+        </button>
 
-</div>
+        <button
+            class="btn gray"
+            onclick="closeModal()"
+        >
+            Cancel
+        </button>
+    `;
 
-<div>
-
-<b>
-Action:
-</b>
-
-Shut down session
-
-</div>
-
-</div>
-
-<p class="muted">
-
-Are you sure you want to shut
-down this session?
-
-</p>
-
-<button
-class="btn red"
-onclick="confirmSSD()">
-
-🔴 CONFIRM SSD
-
-</button>
-
-<button
-class="btn gray"
-onclick="closeModal()">
-
-Cancel
-
-</button>
-
-`;
-
-openModal();
-
+    openModal();
 }
 
 
 /*
-====================================================
+========================================
 CONFIRM SSD
-====================================================
+========================================
 */
 
-async function confirmSSD(){
+async function confirmSSD() {
 
-const oldCode =
-serverCode;
+    const oldCode = serverCode;
 
+    const message =
+        "🔴 **SESSION SHUT DOWN**\n\n" +
+        "🎮 **ER:LC Server Code:** `" +
+        oldCode +
+        "`\n\n" +
+        "👤 **Session Host:** Jaxon";
 
-const message =
+    const sent =
+        await sendDiscord(
+            message,
+            false
+        );
 
-"🔴 **SESSION SHUT DOWN**\n\n"
+    if (!sent) return;
 
-+
+    sessionActive = false;
+    serverCode = "";
 
-"🎮 **ER:LC Server Code:** `"
+    document.getElementById(
+        "sessionStatus"
+    ).textContent = "Inactive";
 
-+
+    document.getElementById(
+        "serverCode"
+    ).textContent = "-";
 
-oldCode
+    addActivity("🔴 SSD completed.");
 
-+
-
-"`\n\n"
-
-+
-
-"🤖 **Session Bot**";
-
-
-const sent =
-await sendDiscord(
-message,
-false
-);
-
-
-if(!sent){
-
-return;
-
-}
-
-
-sessionActive =
-false;
-
-serverCode =
-"";
-
-
-document.getElementById(
-"sessionStatus"
-).textContent =
-"Inactive";
-
-
-document.getElementById(
-"serverCode"
-).textContent =
-"-";
-
-
-addActivity(
-"🔴 SSD completed."
-);
-
-
-closeModal();
-
+    closeModal();
 }
 
 
 /*
-====================================================
-VOTE
-====================================================
+========================================
+DISCORD-ONLY SESSION VOTE
+========================================
 */
 
-function openVote(){
+function openVote() {
 
-yesVotes=0;
+    document.getElementById("modalBox").innerHTML = `
 
-noVotes=0;
+        <h2>🗳️ Session Vote</h2>
 
-alreadyVoted=false;
+        <p class="muted">
+        This will send the vote to Discord.
+        Players will vote in Discord — not on this dashboard.
+        </p>
 
+        <div class="confirm">
 
-document.getElementById(
-"modalBox"
-).innerHTML=`
+            <div>
+                🟢 <b>YES</b> — React 👍 in Discord
+            </div>
 
-<h2>
-🗳️ Session Vote
-</h2>
+            <div>
+                🔴 <b>NO</b> — React 👎 in Discord
+            </div>
 
-<p class="muted">
+        </div>
 
-Should we start an ER:LC session?
+        <label class="check">
 
-</p>
+            <input
+                id="voteEveryone"
+                type="checkbox"
+            >
 
-<h2 id="voteDisplay">
+            <span>
+                📢 Mention @everyone
+            </span>
 
-YES: 0 | NO: 0
+        </label>
 
-</h2>
+        <br>
 
-<button
-id="yesButton"
-class="btn green"
-onclick="castVote('yes')">
+        <button
+            class="btn purple"
+            onclick="sendVote()"
+        >
+            📢 SEND TO DISCORD
+        </button>
 
-✅ YES
+        <button
+            class="btn gray"
+            onclick="closeModal()"
+        >
+            Cancel
+        </button>
+    `;
 
-</button>
-
-<button
-id="noButton"
-class="btn red"
-onclick="castVote('no')">
-
-❌ NO
-
-</button>
-
-<p
-id="voteMessage"
-class="muted">
-
-You have not voted yet.
-
-</p>
-
-<br>
-
-<button
-class="btn purple"
-onclick="sendVote()">
-
-📢 SEND VOTE TO DISCORD
-
-</button>
-
-<button
-class="btn gray"
-onclick="closeModal()">
-
-Close
-
-</button>
-
-`;
-
-openModal();
-
+    openModal();
 }
 
 
 /*
-====================================================
-CAST VOTE
-====================================================
+========================================
+SEND VOTE TO DISCORD
+========================================
 */
 
-function castVote(type){
+async function sendVote() {
 
-if(alreadyVoted){
+    const everyone =
+        document.getElementById(
+            "voteEveryone"
+        ).checked;
 
-document.getElementById(
-"voteMessage"
-).textContent =
-"⚠️ You already voted.";
+    const message =
+        "🗳️ **SESSION VOTE**\n\n" +
+        "Should we start an ER:LC session?\n\n" +
+        "👍 **YES** — Vote in Discord\n" +
+        "👎 **NO** — Vote in Discord\n\n" +
+        "👤 **Host:** Jaxon\n\n" +
+        "⚠️ Please vote using the reactions in Discord.";
 
-return;
+    const sent =
+        await sendDiscord(
+            message,
+            everyone
+        );
 
-}
+    if (!sent) return;
 
+    addActivity(
+        "🗳️ Session vote sent to Discord."
+    );
 
-alreadyVoted = true;
-
-
-if(type==="yes"){
-
-yesVotes++;
-
-}else{
-
-noVotes++;
-
-}
-
-
-document.getElementById(
-"voteDisplay"
-).textContent =
-
-"YES: "
-
-+
-
-yesVotes
-
-+
-
-" | NO: "
-
-+
-
-noVotes;
-
-
-document.getElementById(
-"voteMessage"
-).textContent =
-
-"✅ Vote recorded. You cannot vote again.";
-
-
-document.getElementById(
-"yesButton"
-).disabled = true;
-
-
-document.getElementById(
-"noButton"
-).disabled = true;
-
-
-document.getElementById(
-"voteCount"
-).textContent =
-
-yesVotes +
-noVotes;
-
+    closeModal();
 }
 
 
 /*
-====================================================
-SEND VOTE
-====================================================
-*/
-
-async function sendVote(){
-
-const message =
-
-"🗳️ **SESSION VOTE**\n\n"
-
-+
-
-"Should we start an ER:LC session?\n\n"
-
-+
-
-"Use the Session Bot dashboard to vote.";
-
-
-await sendDiscord(
-message,
-false
-);
-
-}
-
-
-/*
-====================================================
+========================================
 ACTIVITY
-====================================================
+========================================
 */
 
-function addActivity(text){
+function addActivity(text) {
 
-const box =
-document.getElementById(
-"activity"
-);
+    const box =
+        document.getElementById(
+            "activity"
+        );
 
+    if (
+        box.innerText.includes(
+            "No activity yet."
+        )
+    ) {
+        box.innerHTML = "";
+    }
 
-if(
-box.innerText.includes(
-"No activity yet."
-)
-){
+    const item =
+        document.createElement(
+            "div"
+        );
 
-box.innerHTML="";
+    item.className = "activity";
 
-}
+    item.textContent =
+        new Date().toLocaleTimeString() +
+        " — " +
+        text;
 
-
-const item =
-document.createElement(
-"div"
-);
-
-
-item.className =
-"activity";
-
-
-item.textContent =
-
-new Date()
-.toLocaleTimeString()
-
-+
-
-" — "
-
-+
-
-text;
-
-
-box.prepend(item);
-
+    box.prepend(item);
 }
 
 
 /*
-====================================================
+========================================
 MODAL
-====================================================
+========================================
 */
 
-function openModal(){
+function openModal() {
 
-document.getElementById(
-"modal"
-).classList.add(
-"show"
-);
-
+    document.getElementById(
+        "modal"
+    ).classList.add("show");
 }
 
 
-function closeModal(){
+function closeModal() {
 
-document.getElementById(
-"modal"
-).classList.remove(
-"show"
-);
-
+    document.getElementById(
+        "modal"
+    ).classList.remove("show");
 }
 
 
-function showDashboard(){
+function showDashboard() {
 
-closeModal();
-
+    closeModal();
 }
 
 
 /*
-====================================================
+========================================
 ESCAPE HTML
-====================================================
+========================================
 */
 
-function escapeHTML(value){
+function escapeHTML(value) {
 
-return String(value)
-
-.replaceAll(
-"&",
-"&amp;"
-)
-
-.replaceAll(
-"<",
-"&lt;"
-)
-
-.replaceAll(
-">",
-"&gt;"
-)
-
-.replaceAll(
-'"',
-"&quot;"
-)
-
-.replaceAll(
-"'",
-"&#039;"
-);
-
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 </script>
