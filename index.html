@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>ER:LC Session Dashboard</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -15,6 +22,103 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background: #080a0f;
     color: white;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.screen {
+    min-height: 100vh;
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #080a0f;
+}
+
+.auth-box {
+    width: 420px;
+    max-width: 100%;
+    background: #11151d;
+    border: 1px solid #292f3a;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.auth-logo {
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.auth-logo span {
+    color: #7557ff;
+}
+
+.auth-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 30px;
+}
+
+.input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    background: #090c12;
+    color: white;
+    border: 1px solid #303746;
+    border-radius: 9px;
+    outline: none;
+}
+
+.input:focus {
+    border-color: #7557ff;
+}
+
+.btn {
+    border: 0;
+    color: white;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.btn:hover {
+    opacity: .85;
+}
+
+.green {
+    background: #26935b;
+}
+
+.red {
+    background: #d84756;
+}
+
+.purple {
+    background: #7557ff;
+}
+
+.gray {
+    background: #292f3a;
+}
+
+.auth-buttons {
+    margin-top: 15px;
+}
+
+.error {
+    color: #ff6875;
+    min-height: 20px;
+    margin-top: 12px;
 }
 
 .app {
@@ -66,6 +170,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     margin-bottom: 30px;
 }
 
@@ -77,6 +182,19 @@ body {
 .muted {
     color: #858e9e;
     font-size: 13px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.username {
+    background: #151b24;
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: #bbaeff;
 }
 
 .status {
@@ -127,47 +245,6 @@ body {
 
 .panel h2 {
     margin-top: 0;
-}
-
-.btn {
-    border: 0;
-    color: white;
-    padding: 13px 18px;
-    border-radius: 9px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 4px;
-}
-
-.btn:hover {
-    opacity: .85;
-}
-
-.green {
-    background: #26935b;
-}
-
-.red {
-    background: #d84756;
-}
-
-.purple {
-    background: #7557ff;
-}
-
-.gray {
-    background: #292f3a;
-}
-
-.input {
-    width: 100%;
-    padding: 13px;
-    margin-top: 10px;
-    background: #090c12;
-    color: white;
-    border: 1px solid #303746;
-    border-radius: 9px;
-    outline: none;
 }
 
 .check {
@@ -233,6 +310,7 @@ body {
 }
 
 @media(max-width:900px) {
+
     .cards,
     .grid {
         grid-template-columns: 1fr;
@@ -240,6 +318,7 @@ body {
 }
 
 @media(max-width:650px) {
+
     .sidebar {
         display: none;
     }
@@ -247,13 +326,148 @@ body {
     .main {
         padding: 18px;
     }
+
+    .top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
+
 </style>
+
 </head>
 
 <body>
 
+
+<!-- ==============================
+     LOGIN / REGISTER
+================================ -->
+
+<div
+id="authScreen"
+class="screen auth">
+
+<div class="auth-box">
+
+<div class="auth-logo">
+ER:LC <span>SESSION</span>
+</div>
+
+<div class="muted">
+Private Session Dashboard
+</div>
+
+
+<div id="loginArea">
+
+<div class="auth-title">
+🔑 Login
+</div>
+
+<input
+id="loginUsername"
+class="input"
+placeholder="Username"
+autocomplete="username">
+
+<input
+id="loginPassword"
+class="input"
+type="password"
+placeholder="Password"
+autocomplete="current-password">
+
+<div id="loginError" class="error"></div>
+
+<div class="auth-buttons">
+
+<button
+class="btn purple"
+onclick="login()">
+
+Login
+
+</button>
+
+<button
+class="btn gray"
+onclick="showRegister()">
+
+Create Account
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="registerArea"
+style="display:none;">
+
+<div class="auth-title">
+🔐 Create Account
+</div>
+
+<input
+id="registerUsername"
+class="input"
+placeholder="Username">
+
+<input
+id="registerPassword"
+class="input"
+type="password"
+placeholder="Password">
+
+<input
+id="registerConfirm"
+class="input"
+type="password"
+placeholder="Confirm Password">
+
+<div id="registerError" class="error"></div>
+
+<div class="auth-buttons">
+
+<button
+class="btn green"
+onclick="register()">
+
+Create Account
+
+</button>
+
+<button
+class="btn gray"
+onclick="showLogin()">
+
+Back to Login
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ==============================
+     DASHBOARD
+================================ -->
+
+<div
+id="dashboardScreen"
+class="screen"
+style="display:none;">
+
 <div class="app">
+
 
 <aside class="sidebar">
 
@@ -283,182 +497,544 @@ SESSION <span>BOT</span>
 
 </aside>
 
+
 <main class="main">
+
 
 <div class="top">
 
 <div>
-<h1>Session Dashboard</h1>
-<p class="muted">ER:LC Session Management</p>
+
+<h1>
+Session Dashboard
+</h1>
+
+<p class="muted">
+ER:LC Session Management
+</p>
+
 </div>
 
-<div class="status">
-● Session Bot
+
+<div class="user-box">
+
+<div
+id="currentUsername"
+class="username">
+User
+</div>
+
+<button
+class="btn gray"
+onclick="logout()">
+Logout
+</button>
+
 </div>
 
 </div>
+
 
 <div class="cards">
 
+
 <div class="card">
-<div class="card-title">SESSION</div>
-<div id="sessionStatus" class="card-value">
+
+<div class="card-title">
+SESSION
+</div>
+
+<div
+id="sessionStatus"
+class="card-value">
 Inactive
 </div>
+
 </div>
 
+
 <div class="card">
-<div class="card-title">SERVER CODE</div>
-<div id="serverCode" class="card-value">
+
+<div class="card-title">
+SERVER CODE
+</div>
+
+<div
+id="serverCode"
+class="card-value">
 -
 </div>
+
 </div>
+
 
 <div class="card">
-<div class="card-title">DASHBOARD</div>
-<div class="card-value">
-Online
+
+<div class="card-title">
+HOST
 </div>
+
+<div
+id="hostName"
+class="card-value">
+-
 </div>
 
 </div>
+
+
+</div>
+
 
 <div class="grid">
 
+
 <div class="panel">
 
-<h2>Quick Actions</h2>
+<h2>
+Quick Actions
+</h2>
 
 <p class="muted">
-Manage your ER:LC session.
+You are logged in as the session host account.
 </p>
 
 <br>
 
-<button class="btn green" onclick="openSSU()">
+<button
+class="btn green"
+onclick="openSSU()">
+
 🟢 START SESSION
+
 </button>
 
-<button class="btn red" onclick="openSSD()">
+
+<button
+class="btn red"
+onclick="openSSD()">
+
 🔴 SHUT SESSION DOWN
+
 </button>
 
-<button class="btn purple" onclick="openVote()">
+
+<button
+class="btn purple"
+onclick="openVote()">
+
 🗳️ SEND SESSION VOTE
+
 </button>
 
 </div>
+
 
 <div class="panel">
 
-<h2>Activity</h2>
+<h2>
+Activity
+</h2>
 
 <div id="activity">
+
 <div class="muted">
 No activity yet.
 </div>
+
 </div>
 
 </div>
+
 
 </div>
 
 </main>
+
 </div>
 
-<div id="modal" class="modal">
-<div id="modalBox" class="modal-box"></div>
 </div>
+
+
+<!-- ==============================
+     MODAL
+================================ -->
+
+<div
+id="modal"
+class="modal">
+
+<div
+id="modalBox"
+class="modal-box">
+</div>
+
+</div>
+
 
 <script>
 
-/*
-========================================
-CLOUDFLARE WORKER
-========================================
-*/
 
 const WORKER_URL =
 "https://floral-mouse-7550.j-magdaleno5.workers.dev";
 
 
-/*
-========================================
-SESSION DATA
-========================================
-*/
+let authToken =
+localStorage.getItem("erlc_session_token");
+
+let currentUser = "";
 
 let sessionActive = false;
+
 let serverCode = "";
 
 
 /*
-========================================
-SEND DISCORD MESSAGE
-========================================
+================================
+API
+================================
 */
 
-async function sendDiscord(message, everyone = false) {
+async function api(action, data = {}) {
 
-    try {
+    const headers = {
+        "Content-Type": "application/json"
+    };
 
-        const response = await fetch(WORKER_URL, {
+    if (authToken) {
+        headers.Authorization =
+            "Bearer " + authToken;
+    }
+
+    const response =
+        await fetch(WORKER_URL, {
 
             method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers,
 
             body: JSON.stringify({
-                message: message,
-                everyone: everyone
+                action,
+                ...data
             })
-
         });
 
-        const result = await response.json();
+    const result =
+        await response.json();
 
-        if (!response.ok || !result.success) {
-            throw new Error(
-                result.error || "Worker request failed."
+    if (!response.ok) {
+        throw new Error(
+            result.error ||
+            "Request failed."
+        );
+    }
+
+    return result;
+}
+
+
+/*
+================================
+LOGIN
+================================
+*/
+
+async function login() {
+
+    const username =
+        document.getElementById(
+            "loginUsername"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
+    const error =
+        document.getElementById(
+            "loginError"
+        );
+
+    error.textContent = "";
+
+    try {
+
+        const result =
+            await api("login", {
+                username,
+                password
+            });
+
+        authToken =
+            result.token;
+
+        currentUser =
+            result.username;
+
+        localStorage.setItem(
+            "erlc_session_token",
+            authToken
+        );
+
+        showDashboardScreen();
+
+    } catch (err) {
+
+        error.textContent =
+            err.message;
+    }
+}
+
+
+/*
+================================
+REGISTER
+================================
+*/
+
+async function register() {
+
+    const username =
+        document.getElementById(
+            "registerUsername"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "registerPassword"
+        ).value;
+
+    const confirm =
+        document.getElementById(
+            "registerConfirm"
+        ).value;
+
+    const error =
+        document.getElementById(
+            "registerError"
+        );
+
+    error.textContent = "";
+
+    if (password !== confirm) {
+
+        error.textContent =
+            "Passwords do not match.";
+
+        return;
+    }
+
+    try {
+
+        const result =
+            await api("register", {
+                username,
+                password
+            });
+
+        authToken =
+            result.token;
+
+        currentUser =
+            result.username;
+
+        localStorage.setItem(
+            "erlc_session_token",
+            authToken
+        );
+
+        showDashboardScreen();
+
+    } catch (err) {
+
+        error.textContent =
+            err.message;
+    }
+}
+
+
+/*
+================================
+LOGOUT
+================================
+*/
+
+async function logout() {
+
+    try {
+        await api("logout");
+    } catch {}
+
+    authToken = null;
+    currentUser = "";
+
+    localStorage.removeItem(
+        "erlc_session_token"
+    );
+
+    document.getElementById(
+        "dashboardScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "authScreen"
+    ).style.display = "flex";
+}
+
+
+/*
+================================
+CHECK LOGIN
+================================
+*/
+
+async function checkLogin() {
+
+    if (!authToken) {
+        return;
+    }
+
+    try {
+
+        const result =
+            await api("me");
+
+        currentUser =
+            result.username;
+
+        showDashboardScreen();
+
+    } catch {
+
+        localStorage.removeItem(
+            "erlc_session_token"
+        );
+
+        authToken = null;
+    }
+}
+
+
+/*
+================================
+SHOW DASHBOARD
+================================
+*/
+
+function showDashboardScreen() {
+
+    document.getElementById(
+        "authScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "dashboardScreen"
+    ).style.display = "block";
+
+    document.getElementById(
+        "currentUsername"
+    ).textContent =
+        "👤 " + currentUser;
+
+    document.getElementById(
+        "hostName"
+    ).textContent =
+        currentUser;
+}
+
+
+/*
+================================
+AUTH SCREENS
+================================
+*/
+
+function showRegister() {
+
+    document.getElementById(
+        "loginArea"
+    ).style.display = "none";
+
+    document.getElementById(
+        "registerArea"
+    ).style.display = "block";
+}
+
+
+function showLogin() {
+
+    document.getElementById(
+        "registerArea"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginArea"
+    ).style.display = "block";
+}
+
+
+/*
+================================
+SEND DISCORD
+================================
+*/
+
+async function sendDiscord(
+    message,
+    everyone = false
+) {
+
+    try {
+
+        const result =
+            await api(
+                "discord",
+                {
+                    message,
+                    everyone
+                }
             );
-        }
 
-        addActivity("✅ Discord announcement sent.");
+        addActivity(
+            "✅ Discord announcement sent."
+        );
 
-        return true;
+        return result;
 
     } catch (error) {
 
-        console.error(error);
-
-        addActivity("❌ Discord announcement failed.");
+        addActivity(
+            "❌ Discord announcement failed."
+        );
 
         alert(
             "Discord announcement failed:\n\n" +
             error.message
         );
 
-        return false;
+        throw error;
     }
 }
 
 
 /*
-========================================
+================================
 SSU
-========================================
+================================
 */
 
 function openSSU() {
 
-    document.getElementById("modalBox").innerHTML = `
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
 
         <h2>🟢 Start Session</h2>
 
         <p class="muted">
-        Enter your ER:LC server code.
+        Logged-in host:
+        <b>${escapeHTML(currentUser)}</b>
         </p>
 
         <input
@@ -484,15 +1060,13 @@ function openSSU() {
 
         <button
             class="btn green"
-            onclick="confirmSSU()"
-        >
+            onclick="confirmSSU()">
             Continue
         </button>
 
         <button
             class="btn gray"
-            onclick="closeModal()"
-        >
+            onclick="closeModal()">
             Cancel
         </button>
     `;
@@ -501,19 +1075,17 @@ function openSSU() {
 }
 
 
-/*
-========================================
-CONFIRM SSU
-========================================
-*/
-
 function confirmSSU() {
 
     const code =
-        document.getElementById("ssuCode").value.trim();
+        document.getElementById(
+            "ssuCode"
+        ).value.trim();
 
     const everyone =
-        document.getElementById("ssuEveryone").checked;
+        document.getElementById(
+            "ssuEveryone"
+        ).checked;
 
     if (!code) {
 
@@ -529,7 +1101,9 @@ function confirmSSU() {
         everyone
     };
 
-    document.getElementById("modalBox").innerHTML = `
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
 
         <h2>⚠️ Confirm SSU</h2>
 
@@ -541,81 +1115,83 @@ function confirmSSU() {
             </div>
 
             <div>
+                <b>Host:</b>
+                ${escapeHTML(currentUser)}
+            </div>
+
+            <div>
                 <b>@everyone:</b>
                 ${everyone ? "YES" : "NO"}
             </div>
 
         </div>
 
-        <p class="muted">
-        Are you sure you want to start the session?
-        </p>
-
         <button
             class="btn green"
-            onclick="startSSU()"
-        >
+            onclick="startSSU()">
             ✅ CONFIRM SSU
         </button>
 
         <button
             class="btn gray"
-            onclick="openSSU()"
-        >
+            onclick="openSSU()">
             ← Back
         </button>
     `;
 }
 
 
-/*
-========================================
-START SSU
-========================================
-*/
-
 async function startSSU() {
 
-    const data = window.pendingSSU;
-
-    if (!data) return;
+    const data =
+        window.pendingSSU;
 
     const message =
         "🟢 **SESSION STARTED**\n\n" +
         "🎮 **ER:LC Server Code:** `" +
         data.code +
         "`\n\n" +
-        "👤 **Hosted by:** Jaxon";
+        "👤 **Host:** " +
+        currentUser;
 
-    const sent =
-        await sendDiscord(
-            message,
-            data.everyone
-        );
-
-    if (!sent) return;
+    await sendDiscord(
+        message,
+        data.everyone
+    );
 
     sessionActive = true;
-    serverCode = data.code;
+
+    serverCode =
+        data.code;
 
     document.getElementById(
         "sessionStatus"
-    ).textContent = "Active";
+    ).textContent =
+        "Active";
 
     document.getElementById(
         "serverCode"
-    ).textContent = serverCode;
+    ).textContent =
+        serverCode;
 
-    addActivity("🟢 SSU started.");
+    document.getElementById(
+        "hostName"
+    ).textContent =
+        currentUser;
+
+    addActivity(
+        "🟢 SSU started by " +
+        currentUser
+    );
 
     closeModal();
 }
 
 
 /*
-========================================
+================================
 SSD
-========================================
+================================
 */
 
 function openSSD() {
@@ -629,7 +1205,9 @@ function openSSD() {
         return;
     }
 
-    document.getElementById("modalBox").innerHTML = `
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
 
         <h2>🔴 Shut Session Down</h2>
 
@@ -641,27 +1219,21 @@ function openSSD() {
             </div>
 
             <div>
-                <b>Action:</b>
-                Shut down session
+                <b>Host:</b>
+                ${escapeHTML(currentUser)}
             </div>
 
         </div>
 
-        <p class="muted">
-        Are you sure you want to shut down this session?
-        </p>
-
         <button
             class="btn red"
-            onclick="confirmSSD()"
-        >
+            onclick="confirmSSD()">
             🔴 CONFIRM SSD
         </button>
 
         <button
             class="btn gray"
-            onclick="closeModal()"
-        >
+            onclick="closeModal()">
             Cancel
         </button>
     `;
@@ -670,73 +1242,76 @@ function openSSD() {
 }
 
 
-/*
-========================================
-CONFIRM SSD
-========================================
-*/
-
 async function confirmSSD() {
-
-    const oldCode = serverCode;
 
     const message =
         "🔴 **SESSION SHUT DOWN**\n\n" +
         "🎮 **ER:LC Server Code:** `" +
-        oldCode +
+        serverCode +
         "`\n\n" +
-        "👤 **Session Host:** Jaxon";
+        "👤 **Host:** " +
+        currentUser;
 
-    const sent =
-        await sendDiscord(
-            message,
-            false
-        );
-
-    if (!sent) return;
+    await sendDiscord(
+        message,
+        false
+    );
 
     sessionActive = false;
+
     serverCode = "";
 
     document.getElementById(
         "sessionStatus"
-    ).textContent = "Inactive";
+    ).textContent =
+        "Inactive";
 
     document.getElementById(
         "serverCode"
-    ).textContent = "-";
+    ).textContent =
+        "-";
 
-    addActivity("🔴 SSD completed.");
+    addActivity(
+        "🔴 SSD completed by " +
+        currentUser
+    );
 
     closeModal();
 }
 
 
 /*
-========================================
-DISCORD-ONLY SESSION VOTE
-========================================
+================================
+DISCORD-ONLY VOTE
+================================
 */
 
 function openVote() {
 
-    document.getElementById("modalBox").innerHTML = `
+    document.getElementById(
+        "modalBox"
+    ).innerHTML = `
 
         <h2>🗳️ Session Vote</h2>
 
         <p class="muted">
-        This will send the vote to Discord.
-        Players will vote in Discord — not on this dashboard.
+        Players will vote in Discord.
+        There is no voting on this dashboard.
         </p>
 
         <div class="confirm">
 
             <div>
-                🟢 <b>YES</b> — React 👍 in Discord
+                👍 <b>YES</b> — Vote in Discord
             </div>
 
             <div>
-                🔴 <b>NO</b> — React 👎 in Discord
+                👎 <b>NO</b> — Vote in Discord
+            </div>
+
+            <div>
+                👤 <b>Host:</b>
+                ${escapeHTML(currentUser)}
             </div>
 
         </div>
@@ -758,15 +1333,13 @@ function openVote() {
 
         <button
             class="btn purple"
-            onclick="sendVote()"
-        >
-            📢 SEND TO DISCORD
+            onclick="sendVote()">
+            📢 SEND VOTE TO DISCORD
         </button>
 
         <button
             class="btn gray"
-            onclick="closeModal()"
-        >
+            onclick="closeModal()">
             Cancel
         </button>
     `;
@@ -774,12 +1347,6 @@ function openVote() {
     openModal();
 }
 
-
-/*
-========================================
-SEND VOTE TO DISCORD
-========================================
-*/
 
 async function sendVote() {
 
@@ -791,21 +1358,21 @@ async function sendVote() {
     const message =
         "🗳️ **SESSION VOTE**\n\n" +
         "Should we start an ER:LC session?\n\n" +
-        "👍 **YES** — Vote in Discord\n" +
-        "👎 **NO** — Vote in Discord\n\n" +
-        "👤 **Host:** Jaxon\n\n" +
-        "⚠️ Please vote using the reactions in Discord.";
+        "👍 **YES**\n" +
+        "👎 **NO**\n\n" +
+        "👤 **Host:** " +
+        currentUser +
+        "\n\n" +
+        "⚠️ Vote using the reactions in Discord.";
 
-    const sent =
-        await sendDiscord(
-            message,
-            everyone
-        );
-
-    if (!sent) return;
+    await sendDiscord(
+        message,
+        everyone
+    );
 
     addActivity(
-        "🗳️ Session vote sent to Discord."
+        "🗳️ Session vote sent by " +
+        currentUser
     );
 
     closeModal();
@@ -813,9 +1380,9 @@ async function sendVote() {
 
 
 /*
-========================================
+================================
 ACTIVITY
-========================================
+================================
 */
 
 function addActivity(text) {
@@ -838,7 +1405,8 @@ function addActivity(text) {
             "div"
         );
 
-    item.className = "activity";
+    item.className =
+        "activity";
 
     item.textContent =
         new Date().toLocaleTimeString() +
@@ -850,9 +1418,9 @@ function addActivity(text) {
 
 
 /*
-========================================
+================================
 MODAL
-========================================
+================================
 */
 
 function openModal() {
@@ -872,15 +1440,14 @@ function closeModal() {
 
 
 function showDashboard() {
-
     closeModal();
 }
 
 
 /*
-========================================
+================================
 ESCAPE HTML
-========================================
+================================
 */
 
 function escapeHTML(value) {
@@ -892,6 +1459,15 @@ function escapeHTML(value) {
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 }
+
+
+/*
+================================
+START
+================================
+*/
+
+checkLogin();
 
 </script>
 
